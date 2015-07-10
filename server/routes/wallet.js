@@ -17,16 +17,15 @@ module.exports = function(router) {
                 
                 apiClient.getAsset('AVSEVsuMxtJd4g5AQLxN3fNFgDrLiA2NRy', function(err, resp) {
                   console.log('asset:'+resp);  
-                  res.send(resp);
                 })
                 
                 apiClient.issueAsset('AVSEVsuMxtJd4g5AQLxN3fNFgDrLiA2NRy', 
                 [{
-                    address:'eaf490ea-1892-4dd0-934d-943fa2d37a1d',
+                    bucket_id:'eaf490ea-1892-4dd0-934d-943fa2d37a1d',
                     amount:1
                 }]
                 , function(err, resp) {
-                    console.log("transfered "+err+" "+resp);
+                  res.send(resp);
                 });
                 
             });
