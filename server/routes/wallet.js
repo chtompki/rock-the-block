@@ -15,15 +15,18 @@ module.exports = function(router) {
                 var chain = require('chain-wallets-node');
                 var apiClient = wallet.getClient();
                 
-                
+                apiClient.getAsset('AVSEVsuMxtJd4g5AQLxN3fNFgDrLiA2NRy', function(err, resp) {
+                  console.log('asset:'+resp);  
+                  res.send(resp);
+                })
                 
                 apiClient.issueAsset('AVSEVsuMxtJd4g5AQLxN3fNFgDrLiA2NRy', 
                 [{
-                    address:'181So6gyYurnM69o5KjMXotZE8CeVK45YV',
+                    address:'eaf490ea-1892-4dd0-934d-943fa2d37a1d',
                     amount:1
                 }]
-                , function(stuff) {
-                    console.log("transfered "+stuff);
+                , function(err, resp) {
+                    console.log("transfered "+err+" "+resp);
                 });
                 
             });
