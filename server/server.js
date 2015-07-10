@@ -25,6 +25,7 @@ var router = express.Router();              // get an instance of the express Ro
 require('./routes/status')(router);
 require('./routes/user')(router);
 require('./routes/wallet')(router);
+require('./routes/event')(router);
 
 // Models
 var User     = require('./models/user');
