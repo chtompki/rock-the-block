@@ -10,11 +10,11 @@ angular.module('LookieDontTouchie').config(['$stateProvider', '$urlRouterProvide
             templateUrl: 'templates/error-page.html',
             controller: 'ErrorController'
     });
-    // $stateProvider.state('orderInfo', {
-    //     url: '/orderInfo',
-    //     templateUrl: 'templates/order-info.html',
-    //     controller: 'OrderInfoController'
-    // });
+     $stateProvider.state('user.main', {
+         url: '/user/:username',
+         templateUrl: 'templates/user-main.html',
+         controller: 'UserController'
+     });
 
     // $stateProvider.state('orderInfoCards', {
     //     url: '/orderInfoCards',
