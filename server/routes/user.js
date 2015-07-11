@@ -5,6 +5,8 @@ var bitcoin = require('bitcoinjs-lib');
 module.exports = function(router) {
 
     router.route('/user')
+    
+    // return an authentication for a user given a username and password
     .post(function(req, res) {
         User.findOne({username:req.body.username, password: req.body.password}, function(err, user) {
             if (err)
@@ -18,28 +20,16 @@ module.exports = function(router) {
         
     })
 
+    // return a list of usernames in the system
     .get(function(req, res) {
+        var usernames = [];
         User.find(function(err, users) {
             if (err)
                 res.send(err);
-            res.json(users);
+            for(var i=0; i<users.length; i++) {
+                usernames.push(users[i].username);
+            }
+            res.json(usernames);
         });
     });
-
-    router.route('/user/:user_id')
-    .get(function(req, res) {
-        User.findOne({'id':req.params.user_id}, function(err, user) {
-            if (err)
-                res.send(err);
-
-            Wallet.findById(user.wallet, function(err, wallet) {
-                res.json({
-                    'id': user.id,
-                    'name': user.name,
-                    'wallet': wallet.id
-                });
-            });
-        });
-    });
-
 };
