@@ -31,7 +31,7 @@ module.exports = function(router) {
                             var assetData = JSON.parse(asset.definition_reference.description);
                             var recipient = assetData.to
 
-                            if(assetData.to == recipient) {
+                            if(assetData.to == req.params.user_id) {
 
                                 data.push(
                                     {
@@ -46,7 +46,8 @@ module.exports = function(router) {
                                 );
                             }
 
-                            if(data.length===deliveries.length) {
+                            // last one?
+                            if(asset.asset_id==deliveries[deliveries.length-1].asset) {
                                 res.json(data);
                             }
                         });

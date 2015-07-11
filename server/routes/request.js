@@ -169,7 +169,7 @@ module.exports = function(router) {
                                 delivery.save(function() {
         
                                     var assetMetaData = {
-                                        'type': 'delivery',
+                                        'type': 'request',
                                         'from': delivery.from, 
                                         'to': to_user.username, 
                                         'description': delivery.description,

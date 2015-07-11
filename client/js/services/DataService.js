@@ -19,18 +19,20 @@ angular.module('LookieDontTouchie').service('DataService', ['$http', '$state', '
     this.createFileRequest = function(username, from, to, description) {
         var defer = $q.defer()
         return $http.post('https://bithack-crazyatlantaguy.c9.io/api/user/'+username+'/request/', {
-            'to': to,
+            'to': JSON.stringify(to),
             'from': from,
             'description': description
         }).success(function(data) {
             defer.success(data.id);
+        }).error(function(data,status) {
+            defer.reject(status);
         });
         return defer.promise;
     }
 
 
     this.getFileRequests = function(username) {
-        return $http.get('https://bithack-crazyatlantaguy.c9.io/api/user/'+username+'/request/');
+        return $http.get('https://bithack-crazyatlantaguy.c9.io/api/user/'+username+'/request');
     }
 
     this.getFileRequestDetails = function(username, request) {
@@ -41,8 +43,8 @@ angular.module('LookieDontTouchie').service('DataService', ['$http', '$state', '
         return 'https://bithack-crazyatlantaguy.c9.io/api/user/'+username+'/request/'+request+'/qrcode';
     }
 
-    this.uploadFileRequestData = function(username, request, url, data) {
-        return $http.post('https://bithack-crazyatlantaguy.c9.io/api/user/'+username+'/request/'+request, {
+    this.uploadFileRequestData = function(username, requestId, url, data) {
+        return $http.post('https://bithack-crazyatlantaguy.c9.io/api/user/'+username+'/request/'+requestId, {
             'file': data,
             'url': url
         });
@@ -55,6 +57,10 @@ angular.module('LookieDontTouchie').service('DataService', ['$http', '$state', '
 
     this.getFileDeliveriesDetails = function(username, delivery) {
         return $http.get('https://bithack-crazyatlantaguy.c9.io/api/user/'+username+'/delivery/'+delivery);
+    }
+    
+    this.getListOfUsers = function() {
+        return $http.get('https://bithack-crazyatlantaguy.c9.io/api/user/');
     }
         
 

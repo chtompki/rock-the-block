@@ -1,10 +1,18 @@
 <div>
 
-    <div class="page-header">
-        <h1>Welcome {{username}}</h1>
-    </div>
+    <div style="margin: 10px;">
+
+        <div class="page-header">
+            <h1>Welcome {{username}}!</h1>
+        </div>
     
-    <div style="margin: 10px; width: 750px">
+        <p>
+            <button type="button" class="btn btn-success" ng-click="requestDocumentTransfer(username)">
+                <span class="glyphicon glyphicon-random" aria-hidden="true"></span> 
+                Request a new document transfer.
+            </button>
+        </p>
+        
         <div class="panel panel-default">
             <div class="panel-heading">Document Requests</div>
             <div class="panel-body">
@@ -12,16 +20,25 @@
                 request to securely upload the file and make it available to the recipients.</p>
 
                 <div class="list-group list">
-                    <a href="#" class="list-group-item" ng-repeat="request in requests">{{request.description}}</a>
+                    <div ng-repeat="request in requests">
+                        <a href="#" class="list-group-item" ng-click="uploadDocuments(request.id)">
+                            <span class="glyphicon glyphicon-list-alt" style="float:left;padding-right: 10px;" aria-hidden="true"></span>
+                            <h4 class="list-group-item-heading">{{request.description}}</h4>
+                            <p class="list-group-item-text">
+                                <span>to: <i><span ng-repeat="user in request.to">{{user}}<span ng-if="$index!=request.to.length-1">,&nbsp;</span></span></i></span>
+                            </p>
+                        </a>
+                    </div>
                 </div>        
                 
-                <div class="alert alert-info" role="alert" ng-if="requests.length==0">
-                    Great job! You have no outstanding document requests.
+                <div class="alert alert-info" role="alert" ng-if="!requests || requests.length==0">
+                    <b>Great job!</b> You have no outstanding document requests waitin' on your response.
                 </div>
             </div>
         </div>
     
         <div class="panel panel-default">
+        
             <div class="panel-heading">Document Deliveries</div>
             <div class="panel-body">
     
@@ -29,22 +46,24 @@
                 these documents, which can be provided by the original document requestor.</p>
 
                 <div class="list-group list">
+                    
                     <a href="#" class="list-group-item" ng-repeat="delivery in deliveries">
-                        <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-                        {{delivery.description}}
+                        <span class="glyphicon glyphicon-download-alt" style="float:left;padding-right: 10px;" aria-hidden="true"></span>
+                        <h4 class="list-group-item-heading">{{delivery.description}}</h4>
+                        <p class="list-group-item-text">
+                            <span>from: <i>{{delivery.from}}</i></span>
+                        </p>
                     </a>
+                    
                 </div>
 
-                <div class="alert alert-info" role="alert" ng-if="requests.length==0">
-                    Check back later! You have no documents available for download.
+                <div class="alert alert-info" role="alert" ng-if="!deliveries || deliveries.length==0">
+                    <b>Check back later!</b> You have no documents available for download.
                 </div>
 
             </div>
         </div>
         
-        
-        
-        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-random" aria-hidden="true"></span> Request a document transfer.</button>
     </div>
 
 </div>

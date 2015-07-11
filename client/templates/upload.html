@@ -1,0 +1,29 @@
+<div>
+    <div style="margin: 10px;">
+        <div class="page-header">
+            <h1>Upload Sensitive Information</h1>
+        </div>
+        
+        <div class="panel panel-default">
+            <div class="panel-heading"><span class="glyphicon glyphicon-random" aria-hidden="true"></span>&nbsp;Sensitive</div>
+            <div class="panel-body">
+
+                <p>Please provide the sensitive content to be securely transfered.</p>
+                <input type="text" ng-model="upload.file" class="form-control"/>
+
+                <p>Please provide the public url where the encrypted content will be uploaded</p>
+                <input type="text" ng-model="upload.url" class="form-control"/></br>
+
+                <button type="button" class="btn btn-success" ng-click="transferDocs()">
+                    <span aria-hidden="true"></span> 
+                    Send
+                </button>
+                
+                <button type="button" class="btn btn-default" ng-click="cancel()">
+                    <span aria-hidden="true"></span> 
+                    Never Mind
+                </button>
+
+    </div>
+
+</div>

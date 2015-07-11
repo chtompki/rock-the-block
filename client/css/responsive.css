@@ -1,0 +1,362 @@
+/* responsive base style updates */
+body {
+    min-width: inherit;
+}
+div {
+    width:auto;
+}
+.container-16 .grid-16,.grid-16,.btn-row {
+    width: 100%;
+}
+.container-16 .grid-12, .grid-12 {
+    width: 72%;
+    float: left;
+    margin: 0 0 40px 0;
+}
+.container-16 .grid-4, .grid-4 {
+    width: 25%;
+    float: left;
+    margin: 0 0 0 2%;
+    padding-bottom: 152px;
+}
+.cardWrapper .cards_act {
+    width: 365px;
+}
+.card {
+    width: 260px;
+}
+.cardWrapper .cards_act dt {
+    width: 185px;
+}
+.cardWrapper .cards_act dd {
+    display: inline-block;
+    width: 200px;
+    vertical-align: middle;
+    margin: 0;
+}
+.cardWrapper .act_link {
+    margin-top: -15px;
+    position: absolute;
+    right: 0;
+}
+.grats .success p span.act_status,.grats .success p span.act_name, .grats .success p span.act_num {
+    display: inline-block;
+    width: 32%;
+}
+.callout-first, .callout-second {
+    width: 50%;
+    float: left;
+    margin: 40px 0;
+    padding: 0;
+}
+.footer {
+    height: auto;
+    min-height: 149px;
+}
+
+/*********
+**
+**
+**    TABLET LANDSCAPE
+**
+**    MAX-WIDTH : 960PX
+**
+**
+*********/
+@media only screen and (max-width : 960px){
+    /*GLOBAL NOTIFICATIONS*/
+    .global_notification .notif_content {width: 96%; padding: 0 2%;}
+
+    /* MAIN LAYOUT */
+    .wrap,.container-16,.oa-wrap		{width:96%;padding:0 2%;}
+    .landing_head{margin: 0 -2%; padding: 30px 2% 20px;}
+
+    .grid-16 .grid-12 {width: 72%flo;at: left;margin: 0 0 40px 0;}
+
+    /*ACTIVATE*/
+    .inner .card{width: 52%; margin: 10px 0 20px 0;}
+    .inner .cards_act{}
+    .cardWrapper .cards_act {width: 48%;}
+    .cardWrapper .cards_act dt{width: 60%; margin: 0;}
+
+
+    /*MODAL*/
+    .modal{margin: 0 2.5%;}
+
+    /*FOOTER*/
+    .footer-logo  {width: 20%; margin-right: 5%;}
+    .oa-legalese     {width: 70%; margin-right: 5%;}
+    footer .oa-help-zone    {width: 20%;}
+
+    /* END 960px @media */
+}
+
+/*********
+**
+**
+**    TABLET PORTRAIT
+**
+**    MAX-WIDTH : 770PX
+**
+**
+*********/
+@media only screen and (max-width : 770px){
+
+    /* GLOBAL NOTIFICATION */
+    .global_notification .notif_content p      {width: 70%; line-height:19px;}
+    .global_notification .notif_content img      {margin: 18px 0;}
+    .global_notification .notif_content .close    {margin: 16px 0;}
+
+
+    /*WELCOME LOGIN*/
+    a.forgot{overflow: hidden; text-indent: 100%; white-space: nowrap; background: url(../_i/forgot-icon.png) no-repeat; display: inline-block; width: 10px; margin: 7px 0 0 2%; line-height: 1; height: 15px;}
+    a.forgot:hover{background-image: url(../_i/forgot-icon_link.png);}
+    .oa_login input[type="text"], .oa_login input[type="password"], .enroll_fields input{width: 90%;}
+    .oa_login h3, .oa_enroll h3 {font-size: 18px;}
+
+    /* CONTENT LEFT */
+    .content_l, .container-16 .grid-12        {width:100%;}
+
+
+    /* CONTENT RIGHT */
+    .container-16 .grid-4        {display:none;}
+
+
+    /* SECTIONS */
+    .new_user .rules          {right: 93px;}
+
+    /* security queestions */
+    .disabled > img.d_h       {left: 79px;}
+    .sec_q dl dd input        {width: 260px;}
+
+    /* paperless */
+    td.account                {width: 620px;}
+
+    /*NO CARDS*/
+    .callout-first, .callout-second {width: 100%; float: none; margin: 40px 0;}
+    .callout-first img, .callout-second img{width: 25%;}
+
+    .ola-content div.msg {top: auto;}
+    .modal {width: 90%;}
+
+    /* TIMEOUT */
+    .ui-dialog {width: 97% !important;left:1% !important;}
+    .exit-text {width: 100%;}
+    .exit-text img {width: 20%;}
+    .exit-text .texties {width: 75%}
+    .exit-btns {width: 94%;}
+
+
+    /*FOOTER
+    footer 					{height:165px;}
+
+    footer .help-zone		{width:19%}
+    .legalese				{margin-right:3%;}
+    .legalese p 			{width: 100%;}
+    */
+
+    /* END 770px @media */
+}
+
+/*********
+**
+**
+**    ADJUSTMENTS BREAKPOINT
+**
+**    MAX-WIDTH : 720PX
+**
+**    Use this only for small tweaks to the design in between larger breakpoints
+*********/
+@media only screen and (max-width : 720px) {
+
+    .ui-dialog {top: 25px !important;}
+
+    /* END 720px @media */
+}
+
+/*********
+**
+**
+**    ADJUSTMENTS BREAKPOINT
+**
+**    MAX-WIDTH : 650PX
+**
+**    Use this only for small tweaks to the design in between larger breakpoints
+*********/
+@media only screen and (max-width : 650px){
+
+    .msg span {float:none;margin-top: 20px;}
+    /** footer
+    footer 					{height:185px;}
+
+    footer .help-zone				{height:185px;}
+    footer .help-zone ul 			{margin: 0 0 20px 0;}
+
+    .legalese				{width:78%;}
+    .legalese p 			{width: 100%;}
+
+    .footerLogos				{width:70%;margin: 0 0 0 -1.2%;}
+**/
+}
+
+/*********
+**
+**
+**    ADJUSTMENTS BREAKPOINT
+**
+**    MAX-WIDTH : 600PX
+**
+**    Use this only for small tweaks to the design in between larger breakpoints
+*********/
+@media only screen and (max-width : 600px){
+    /*GLOBAL NOTIFICATIONS*/
+
+    /*LOGIN UTILITY*/
+    .log-dateTime{display: none;}
+    p#badge {font-size: 0;line-height: 0;color: transparent;}
+    p#badge a {color: #fff;font-size: 11px;line-height: 18px;}
+
+    /*WELCOME LOGIN*/
+    .oa_login {padding: 0 3% 0 0;}
+    .oa_enroll{padding: 0 0 0 6%;}
+
+    /*ACTIVATE*/
+    .inner .card, .inner .cards_act{width: 100%; float: none;}
+    .inner .cards_act dl{margin-top: 20px !important;}
+    .card{display: none;}
+
+    .grats .success p span.act_name,
+    .grats .sect_error p span.act_name 		{text-align: left;}
+    .cards_act ul li,.cardWrapper .cards_act.cardcount_1 ul li {margin: 0 0 20px 0;position: relative;}
+
+    /*MODALS*/
+    .timeout.modal{width: 85%; margin: 0 5%; top: 75px;}
+
+    /*CHAT*/
+    .msg span{display: none;}
+
+    /*FOOTER*/
+    .footer-logo{width: auto; margin-right: 0;}
+    .oa-legalese{width: 100%; margin: 0; }
+    .oa-legalese p{width:90%;}
+    footer .oa-help-zone {width: auto;margin-left: 4%}
+
+    .footerLogos				{width: 100%;margin: 15px 0 0 -1.2%;}
+    .footerLogos a 				{float:left;}
+    .fdic						{width:170px;}
+    .verisign 					{width: 100px;margin: -13px 0 0 20px;}
+
+    /* END 600px @media */
+}
+
+/*********
+**
+**
+**    ADJUSTMENTS BREAKPOINT
+**
+**    MAX-WIDTH : 500PX
+**
+**    Use this only for small tweaks to the design in between larger breakpoints
+*********/
+@media only screen and (max-width : 520px){
+    /*ACTIVATE*/
+    .grats .success p span.act_status,
+    .grats .sect_error p span.act_status {display: block; width: 100%;}
+    .grats .success p span.act_name,
+    .grats .sect_error p span.act_name  {width: 37%;}
+    .grats .success p span.act_num,
+    .grats .sect_error p span.act_num  {width: 61%;}
+
+    /*FOOTER*/
+
+
+    /* END 520px @media */
+}
+
+
+/*********
+**
+**
+**    PHONE LANDSCAPE
+**
+**    MAX-WIDTH : 480PX
+**
+**
+*********/
+@media only screen and (max-width : 480px){
+    /* GLOBAL NOTIFICATION */
+    .global_notification .notif_content p      {width: 80%;line-height:19px; font-size: 11px;}
+    .global_notification .notif_content img      {margin: 18px 0;}
+    .global_notification .notif_content .close    {margin: 16px 0;}
+
+    /*TYPOGRAPHY*/
+    h1{font-size: 28px; line-height: 100%;}
+    h2{font-size: 22px;}
+
+    /*WELCOME LOGIN*/
+    .oa_login, .oa_enroll{ float: none; width: 100%; padding: 0;}
+    .oa_enroll{ border-left: none; border-top: 1px solid #ccc; padding: 20px 0 0 0;}
+    .oa_login h3, .oa_enroll h3 {font-size: 18px;}
+    .oa_login input[type="text"], .oa_login input[type="password"], .enroll_fields input{height: 35px; width: 100%;}
+    a.forgot{position: absolute; top: 4px; right: 2%;}
+    .what_creds{float: right;}
+
+    /*ACTIVATE*/
+
+    a.undo{overflow: hidden; text-indent: 100%; white-space: nowrap; width: 10px; line-height: 1; height: 15px; background: url(../_i/close-icon.png) no-repeat; margin: 10px 0 0 0;}
+    a.undo:hover{background-image: url(../_i/close-icon_link.png);}
+    .cvv_focus{margin: 0 0 0 5px !important;}
+
+    .card_ben li{float: none; width: 100%; text-align: left; margin: 0 0 40px 0; min-height: inherit; clear: left;}
+    .card_ben li span{float: left; width: 20%; margin-right: 5%;}
+    .card_ben li span img{width: 100%;}
+    .grats h4{margin: 0 0 2px 0;}
+    .grats li > p{margin: 0;}
+
+    /*MODALS*/
+    .modal .exit-text .icon{display: none;}
+    .modal .exit-text .texties{width: 94%; float: none;}
+
+    /*FOOTER*/
+    footer .oa-help-zone{left: 190px;}
+
+    /* END 480px @media */
+}
+
+
+/*********
+**
+**
+**    PHONE PORTRAIT
+**
+**    MAX-WIDTH : 320PX
+**
+**
+*********/
+@media only screen and (max-width : 320px){
+    /*GLOBAL NOTIFICATIONS*/
+
+    /*LOGIN UTILITY*/
+    #welcome-name{display: none;}
+
+    /*TYPOGRAPHY*/
+    h1{font-size: 24px;}
+
+    /*ACTIVATE*/
+
+    .grats .success p span.act_name,
+    .grats .sect_error p span.act_name{display: block; width: 100%;}
+
+    .grats .success p span.act_num,
+    .grats .sect_error p span.act_num {width: 100%; text-align: left;}
+
+    .card_ben li{margin: 0 0 10px 0;}
+    .card_ben li span{width: 25%;}
+
+    /*NO CARDS*/
+    .marketing span{width: 30%;}
+
+    /*FOOTER*/
+
+    /* END 320px @media */
+}

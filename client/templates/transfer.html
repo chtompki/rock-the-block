@@ -1,0 +1,49 @@
+<div>
+    <div style="margin: 10px;">
+        <div class="page-header">
+            <h1>Request a Document Transfer</h1>
+        </div>
+        
+        <div class="panel panel-default">
+            <div class="panel-heading"><span class="glyphicon glyphicon-random" aria-hidden="true"></span> Transfer Details</div>
+            <div class="panel-body">
+
+                <p>Please click the the source of the document to be transfered.</p>
+                <div class="well">
+                    <p><b>FROM</b>:</p>
+                    <div ng-repeat="user in users">
+                        <span ng-if="request.to.indexOf(user)==-1">
+                            <input name="toUser" type="radio" ng-model="request.from" value="{{user}}">
+                            {{user}}
+                        </span>
+                    </div>
+                </div>
+
+    
+                <p>Please click the the recipients, from the available below, to whom you wish to send a document.</p>
+                <div class="well">
+                    <p><b>TO</b>:</p>
+                    <div ng-repeat="user in users">
+                        <span ng-if="request.from!=user">
+                            <input name="fromUser" type="checkbox" ng-click="toggleUser(user)" ng-checked="request.to.indexOf(user)>-1" value="{{user}}">
+                            {{user}}
+                        </span>
+                    </div>
+                </div>
+    
+    
+                <p>Request Description: <textarea type="text" ng-model="request.description" class="form-control"/></textarea></p>
+                
+                <button type="button" class="btn btn-success" ng-click="transferDocs()">
+                    <span aria-hidden="true"></span> 
+                    Submit Request
+                </button>
+                
+                <button type="button" class="btn btn-default" ng-click="cancel()">
+                    <span aria-hidden="true"></span> 
+                    Never Mind
+                </button>
+
+    </div>
+
+</div>

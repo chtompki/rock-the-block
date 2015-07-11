@@ -15,7 +15,21 @@ angular.module('LookieDontTouchie').config(['$stateProvider', '$urlRouterProvide
         templateUrl: 'templates/user-main.html',
         controller: 'UserController'
     });
-
+    $stateProvider.state('transfer', {
+        url: '/transfer/:username',
+        templateUrl: 'templates/transfer.html',
+        controller: 'TransferController'
+    });
+    $stateProvider.state('qrcode', {
+        url: '/user/:username/transfer/:id/qrcode',
+        templateUrl: 'templates/qrcode.html',
+        controller: 'QRCodeController'
+    });
+    $stateProvider.state('upload', {
+        url: '/user/:username/transfer/:id/upload',
+        templateUrl: 'templates/upload.html',
+        controller: 'UploadController'
+    });
     // $stateProvider.state('orderInfoCards', {
     //     url: '/orderInfoCards',
     //     templateUrl: 'templates/order-info-cards.html',
