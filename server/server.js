@@ -19,6 +19,16 @@ mongoose.connect('mongodb://localhost:27017/bithack'); // connect to our databas
 
 var port = process.env.PORT || 8080;        // set our port
 
+// Compute the working directory for serving static files
+// makes assumptions about layout of node and directory structure
+// working directories/projects etd.
+var ROOT_DIR = __dirname + '/client';
+ROOT_DIR = fs.realpathSync(ROOT_DIR);
+if (!fs.existsSync(ROOT_DIR)) {
+	console.log('Error: cannot find working directory: ' + ROOT_DIR);
+	exit();
+}
+app.use(express.static(ROOT_DIR));          // declare the angular client
 
 // Routes
 var router = express.Router();              // get an instance of the express Router

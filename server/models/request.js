@@ -2,9 +2,10 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var RequestSchema   = new Schema({
-    id: String,
-    username: String,
-    password: String
+    from: String,
+    to: String,
+    description: String,
+    key: String
 });
 
 module.exports = mongoose.model('Request', RequestSchema);

@@ -1,0 +1,33 @@
+<!-- index.html -->
+<!doctype html>
+<html ng-app="LookieDontTouchie">
+<head lang="en">
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Node/Angular Lookie Don't Touchie</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/><!-- load bootstrap -->
+    <link rel="stylesheet" href="css/main.css"/>
+    <style>
+        html                    { overflow-y:scroll; }
+        body                    { padding-top:50px; }
+        #todo-list              { margin-bottom:30px; }
+    </style>
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL TODOS -->
+<body ng-controller="mainController">
+    <div class="container">
+
+    </div>
+    
+     <!-- SPELLS -->
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script><!-- load jquery -->
+    <script src="../node_modules/angular/angular.min.js"></script><!-- load angular -->
+    <script src="../node_modules/angular-ui-router/angular-ui-router.min.js"></script><!-- load angular-ui-router -->
+    <script src="js/main.js"></script><!-- hook main angular app script -->
+</body>
+</html>
