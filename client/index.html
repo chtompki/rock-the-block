@@ -2,54 +2,37 @@
 <!doctype html>
 <html ng-app="LookieDontTouchie">
 <head lang="en">
-    <!-- META -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
 
-    <title>Node/Angular Lookie Don't Touchie</title>
+    <title>BlockLocker</title>
 
-    <!-- SCROLLS -->
     <link rel="stylesheet" href="css/bootstrap.min.css"/><!-- load bootstrap -->
     <link rel="stylesheet" href="css/960.css"/>
     <link rel="stylesheet" href="css/main.css"/>
-    <style>
-        html                    { overflow-y:scroll; }
-        body                    { padding-top:50px; }
-        #todo-list              { margin-bottom:30px; }
-    </style>
+    
     <style>
         [ng-cloak] {
             display: none;
         }
     </style>
-
 </head>
-<!-- SET THE CONTROLLER AND GET ALL TODOS -->
-<!-- <body ng-cloak> -->
+
 <body>
-    <header>
-        <style type="text/css">
-            container-16 {
-                margin-left: auto;
-                margin-right: auto;
-                width: 960px;
-            }
-        </style>
-        <h1>Lookie don't touchie</h1>
-    </header>
-    
     <div class="main_area" ui-view></div></br></br>
     
-    <footer>footer area</footer>
-    
-     <!-- SPELLS -->
-    <!-- <script src="js/libs/jquery.min.js"></script> --> <!-- load jquery -->
     <script type="text/javascript" src="js/libs/angular.min.js"></script><!-- load angular -->
     <script type="text/javascript" src="js/libs/angular-ui-router.min.js"></script><!-- load angular-ui-router -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script><!-- load bootstrap -->
+    
     <script type="text/javascript" src="js/main.js"></script><!-- hook main angular app script -->
     <script type="text/javascript" src="js/main-router.js"></script><!-- load the router -->
     <script type="text/javascript" src="js/controllers/LoginController.js"></script><!-- load LoginController -->
-    <script type="text/javascript" src="js/services/LoginService.js"></script><!-- load LoginController -->
-    <script type="text/javascript" src="js/controllers/ErrorController.js"></script><!-- load LoginController -->
+    <script type="text/javascript" src="js/services/LoginService.js"></script><!-- load LoginService -->
+    <script type="text/javascript" src="js/services/UserService.js"></script><!-- load UserService -->
+    <script type="text/javascript" src="js/services/DataService.js"></script><!-- load DataService -->
+    <script type="text/javascript" src="js/controllers/ErrorController.js"></script><!-- load ErrorControler -->
+    <script type="text/javascript" src="js/controllers/UserController.js"></script><!-- load UserControler -->
 </body>
 </html>

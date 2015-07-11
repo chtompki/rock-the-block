@@ -1,20 +1,20 @@
 angular.module('LookieDontTouchie').config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
     $urlRouterProvider.otherwise('/');
     $stateProvider.state('login', {
-            url: '/',
-            templateUrl: 'templates/login-page.html',
-            controller: 'LoginController'
+        url: '/',
+        templateUrl: 'templates/login-page.html',
+        controller: 'LoginController'
     });
     $stateProvider.state('error', {
-            url: '/error',
-            templateUrl: 'templates/error-page.html',
-            controller: 'ErrorController'
+        url: '/error',
+        templateUrl: 'templates/error-page.html',
+        controller: 'ErrorController'
     });
-     $stateProvider.state('user.main', {
-         url: '/user/:username',
-         templateUrl: 'templates/user-main.html',
-         controller: 'UserController'
-     });
+    $stateProvider.state('user', {
+        url: '/user/:username',
+        templateUrl: 'templates/user-main.html',
+        controller: 'UserController'
+    });
 
     // $stateProvider.state('orderInfoCards', {
     //     url: '/orderInfoCards',

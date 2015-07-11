@@ -47,6 +47,4 @@ angular.module('LookieDontTouchie').service('UserService', ['$http', '$state', f
             });
     }
 
-
-
 }]);

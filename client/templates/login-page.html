@@ -1,26 +1,34 @@
 <div>
-    <div class="btn-row">
-        <div class="prefix_2 grid_14 ">
-            <section ng-controller="LoginController">
-                <h1>{{loginPage.heading}}</h1>
-                <form ng-submit="login()">
-                <ul class="prefix_1">
-                    <li class="error" ng-show="loginPage.badAuthentication">
-                        The username or password entered were incorrect.
-                    </li>
-                    <li>
-                        Username: &nbsp;
-                        <input type="text" ng-model="loginPage.username"/>
-                    </li>
-                    <li>
-                        Password: &nbsp;
-                        <input type="password" ng-model="loginPage.password" />
-                    </li>
-                    <li>
-                        <input type="submit" value="Submit" />
-                    </li>
-                </ul>
-                </form>
+    <style>
+        h1.intro {
+            color: blue;
+        }
+
+        p.error {
+            color: red;
+        }
+    </style>
+
+    <section ng-controller="LoginController">
+
+        <div class="page-header">
+            <h1>BlockLocker Sign-in</h1>
         </div>
-    </div>
+        
+        <div class="well" style='margin: 0px 30px;'>
+            <form ng-submit="login()">
+
+                <p>Username: <input type="text" ng-model="loginPage.username" class="form-control"/></p>
+                <p>Password: <input type="password" ng-model="loginPage.password" class="form-control"/></p>
+
+                <div class="alert alert-warning alert-dismissible" ng-show="loginPage.badAuthentication" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <strong>Ooops!</strong> The username or password entered were incorrect.
+                </div>
+
+                <p><input type="submit" value="Sign In" class="btn btn-default"/></p>
+            </form>
+        </div>                
+        
+    </section>
 </div>

@@ -1,0 +1,50 @@
+<div>
+
+    <div class="page-header">
+        <h1>Welcome {{username}}</h1>
+    </div>
+    
+    <div style="margin: 10px; width: 750px">
+        <div class="panel panel-default">
+            <div class="panel-heading">Document Requests</div>
+            <div class="panel-body">
+                <p>You have been requested to provide the following documents to a third party recipient.  Please click the
+                request to securely upload the file and make it available to the recipients.</p>
+
+                <div class="list-group list">
+                    <a href="#" class="list-group-item" ng-repeat="request in requests">{{request.description}}</a>
+                </div>        
+                
+                <div class="alert alert-info" role="alert" ng-if="requests.length==0">
+                    Great job! You have no outstanding document requests.
+                </div>
+            </div>
+        </div>
+    
+        <div class="panel panel-default">
+            <div class="panel-heading">Document Deliveries</div>
+            <div class="panel-body">
+    
+                <p>The following documents have been provided for your use.  You will need the access key to open
+                these documents, which can be provided by the original document requestor.</p>
+
+                <div class="list-group list">
+                    <a href="#" class="list-group-item" ng-repeat="delivery in deliveries">
+                        <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                        {{delivery.description}}
+                    </a>
+                </div>
+
+                <div class="alert alert-info" role="alert" ng-if="requests.length==0">
+                    Check back later! You have no documents available for download.
+                </div>
+
+            </div>
+        </div>
+        
+        
+        
+        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-random" aria-hidden="true"></span> Request a document transfer.</button>
+    </div>
+
+</div>
