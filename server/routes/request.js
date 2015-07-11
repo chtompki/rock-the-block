@@ -1,7 +1,9 @@
 var User = require('./../models/user');
 var Wallet = require('./../models/wallet');
 var Request = require('./../models/request');
+var Delivery = require('./../models/delivery');
 var bitcoin = require('bitcoinjs-lib');
+var ursa = require('ursa');
 
 module.exports = function(router) {
 
@@ -13,20 +15,28 @@ module.exports = function(router) {
             if (err)
                 res.send(err);
 
-            Request.find(function(err, requests) {
-                var data = [];
-                
-                for(var i=0; i<requests.length; i++) {
-                    data.push({
-                        'from': requests[i].from, 
-                        'to': requests[i].to, 
-                        'description': requests[i].description,
-                        'key': requests[i].publicKey,
-                        'id': requests[i]._id
+            Request.find({from:req.params.user_id}, function(err, requests) {
+                console.log(requests)
+                if(requests.length==0) {
+                    res.json([]);
+                } else {
+                    Wallet.findOne(function(err, wallet) {
+                        var client = wallet.getClient();
+                        var data = [];
+                        
+                        for(var i=0; i<requests.length; i++) {
+                            var request = requests[i];
+                            client.getAsset(request.asset, function(err, asset) {
+                                var assetData = JSON.parse(asset.definition_reference.description);
+                                assetData.id = request.asset;
+                                data.push(assetData);
+                                if(data.length===requests.length) {
+                                    res.json(data);
+                                }
+                            });
+                        }
                     });
                 }
-                
-                res.json(data);
             });
         });
     });
@@ -42,9 +52,9 @@ module.exports = function(router) {
             if (err)
                 res.send(err);
                 
-            var keyPair = bitcoin.ECKey.makeRandom()
-            var privateKey = keyPair.toWIF();
-            var publicKey = keyPair.pub.getAddress().toString();
+            var keyPair = ursa.generatePrivateKey(512, 65537);
+            var privateKey = keyPair.toPrivatePem().toString('utf8');
+            var publicKey = keyPair.toPublicPem().toString('utf8');
 
             var request = new Request();
             request.from = from;
@@ -60,6 +70,7 @@ module.exports = function(router) {
                 Wallet.findOne(function(err, wallet) {
                     var client = wallet.getClient();
                     var assetMetaData = {
+                        'type': 'request',
                         'from': from, 
                         'to': to, 
                         'description': description,
@@ -72,7 +83,6 @@ module.exports = function(router) {
                         description_mime:'application/json',
                         definition_url: 'https://bithack-crazyatlantaguy.c9.io/api/user/'+req.params.user_id+'/request/'+request._id
                     }, function(err, response){
-                        console.log(response);
                         request.asset = response.asset_id;
                         request.save();
 
@@ -102,71 +112,95 @@ module.exports = function(router) {
         User.findOne({'username': req.params.user_id}, function(err, user) {
             if (err)
                 res.send(err);
-
-            Request.findById(req.params.request_id, function(err, request) {
-                res.json({
-                    'from': request.from, 
-                    'to': request.to, 
-                    'description': request.description,
-                    'key': request.key
-                })
+            Request.findOne({asset:req.params.request_id}, function(err, request) {
+                Wallet.findOne(function(err, wallet) {
+                    var client = wallet.getClient();
+                    client.getAsset(request.asset, function(err, asset) {
+                        res.json(JSON.parse(asset.definition_reference.description));
+                    })
+                });
             });
         });
     })
     
     .post(function(req, res) {
-      
-      
-      
-      
-        var buf = new Buffer(req.body.file.toString('binary'),'binary');
 
         User.findOne({'username': req.params.user_id}, function(err, user) {
             if (err)
                 res.send(err);
                 
             
-            Request.findById(req.params.request_id, function(err, request) {
+            Request.findOne({'asset':req.params.request_id}, function(err, request) {
                 
-                var publicKey = request.publicKey;
-                var privateKey = request.privateKey;
-                
-                var to = JSON.parse(request.to);
-                var from = request.from;
-                
+                var myKeyPair = ursa.generatePrivateKey(512, 65537);
+
                 Wallet.findOne(function(err, wallet) {
     
-                    for(var i = 0; i<to.length; i++) {
+                    var client = wallet.getClient();
+
+                    client.getAsset(request.asset, function(err, asset) {
+
+                        var assetData = JSON.parse(asset.definition_reference.description);
+
+                        // encrypt the file with my public key
+                        var fileOutput = myKeyPair.encrypt(req.body.file, 'utf8', 'base64');
+
+                        // encrypt my private key with the request public key
+                        var theirPublicKey = assetData.key;
+                        var myEncryptedPrivateKey = 'blah'; //TODO ursa.createPublicKey(theirPublicKey).encrypt(myKeyPair.toPrivatePem(), 'utf8', 'base64')
+
+                        res.contentType('application/octet-stream');
+                        res.end(fileOutput);
+
+                        var delivery = new Delivery();
+                        delivery.from = assetData.from;
+                        delivery.to = JSON.stringify(assetData.to);
+                        delivery.description = assetData.description;
+                        delivery.privateKey = myEncryptedPrivateKey;
+                        delivery.url = req.body.url;
                         
-                        var client = wallet.getClient();
+                        delivery.save(function() {
 
+                            var assetMetaData = {
+                                'type': 'request',
+                                'from': delivery.from, 
+                                'to': delivery.to, 
+                                'description': delivery.description,
+                                'key': delivery.privateKey,
+                                'url': delivery.url
+                            };
+                            var assetDefinition = {description: JSON.stringify(assetMetaData)};
 
-                        User.findOne({'username': from}, function(err, from_user) {
+                            client.createAsset(wallet.id, {
+                                definition_mutable:false, 
+                                definition:assetDefinition, 
+                                description_mime:'application/json',
+                                definition_url: 'https://bithack-crazyatlantaguy.c9.io/api/user/'+req.params.user_id+'/delivery/'+delivery._id
+                            }, function(err, response){
+                                delivery.asset = response.asset_id;
+                                delivery.save();
     
-                            User.findOne({'username': to[i]}, function(err, to_user) {
+                                var recipients = JSON.parse(assetData.to);
+                                console.log(recipients);
+                                console.log(recipients.length);
                                 
-                                // transfering assets probably isn't what we want to do here
-                                // instead we need a new private/public key generated, and
-                                // send the one key to the recipient while enoding the private 
-                                // key with the asset public key before sending to the 
-                                // recipient in an asset
-                                
-                                client.transferAsset([{
-                                    bucket_id: from_user.bucket,
-                                    asset_id: request.asset,
-                                    amount: 1
-                                }], {
-                                    bucket_id: to_user.bucket,
-                                    amount: 1
-                                }, function(err, response){})
-                                
+                                for(var i = 0; i<recipients.length; i++) {
+        
+                                    User.findOne({'username': recipients[i]}, function(err, to_user) {
+                                        console.log(recipients[i]+" "+to_user);
+                                        client.issueAsset(response.asset_id, 
+                                        [{
+                                            bucket_id:to_user.bucket,
+                                            amount:1
+                                        }], function(err, response) {
+                                            console.log("success");
+                                        });
+                                    });                                
+                                }
                             });
                         });
-                    }
+                    });
                 });
-                
-                // encrypt!
-                res.write(buf);
             });
         });
     });

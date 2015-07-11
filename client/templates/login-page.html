@@ -2,20 +2,28 @@
     <div class="container_16">
         <div class="prefix_2 grid_14">
             <section ng-controller="LoginController">
-                <h2>{{page.heading}}</h2>
+                <h1>{{loginPage.heading}}</h1>
+                <form ng-submit="login()">
                 <ul class="prefix_1">
+                    <li class="error" ng-show="loginPage.showError">
+                        The username or password entered were incorrect.
+                    </li>
                     <li>
                         Username: &nbsp;
-                        <input type="text" ng-model="login.username"/>
+                        <input type="text" ng-model="loginPage.username"/>
                     </li>
                     <li>
                         Password: &nbsp;
-                        <input type="password" ng-model="login.password" />
+                        <input type="password" ng-model="loginPage.password" />
                     </li>
                     <li>
-                        <input type="reset" value="submit" ng-click="login()"/><br />
+                        <input type="submit" value="Submit" />
+                    </li>
+                    <li class="error" ng-show="loginPage.yay ">
+                        YAY!!!!!!!!!!!!!!!!!!!!!
                     </li>
                 </ul>
+                </form>
         </div>
     </div>
 </div>

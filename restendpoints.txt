@@ -1,0 +1,17 @@
+authenticate user
+POST https://bithack-crazyatlantaguy.c9.io/api/user/
+
+get list of users
+GET https://bithack-crazyatlantaguy.c9.io/api/user/
+
+list of requests for a user
+GET https://bithack-crazyatlantaguy.c9.io/api/user/robtompkins/request/
+
+create a new request
+POST https://bithack-crazyatlantaguy.c9.io/api/user/leeadcock/request
+
+get the details of a specific request
+GET https://bithack-crazyatlantaguy.c9.io/api/user/leeadcock/request/55a0af6310d17f601b000002
+
+get the private key qr code for a specific request
+https://bithack-crazyatlantaguy.c9.io/api/user/leeadcock/request/55a0af6310d17f601b000002/qrcode
