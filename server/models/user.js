@@ -3,8 +3,9 @@ var Schema       = mongoose.Schema;
 
 var UserSchema   = new Schema({
     id: String,
-    name: String,
-    wallet: {type: Schema.Types.ObjectId, ref: 'Wallet'}
+    username: String,
+    password: String,
+    bucket: String
 });
 
 module.exports = mongoose.model('User', UserSchema);
