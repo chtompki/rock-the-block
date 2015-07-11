@@ -5,6 +5,7 @@
 
 // call the packages we need
 var express    = require('express');        // call express
+var fs         = require('fs');             // call fs
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var chain = require('chain-wallets-node');
@@ -22,7 +23,7 @@ var port = process.env.PORT || 8080;        // set our port
 // Compute the working directory for serving static files
 // makes assumptions about layout of node and directory structure
 // working directories/projects etd.
-var ROOT_DIR = __dirname + '/client';
+var ROOT_DIR = __dirname + '/../client';
 ROOT_DIR = fs.realpathSync(ROOT_DIR);
 if (!fs.existsSync(ROOT_DIR)) {
 	console.log('Error: cannot find working directory: ' + ROOT_DIR);
