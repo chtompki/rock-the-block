@@ -1,0 +1,1 @@
+angular.module('LookieDontTouchie').controller('ErrorController', ['$rootScope', '$scope', function($rootScope, $scope) {}]);

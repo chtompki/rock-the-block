@@ -1,4 +1,4 @@
-angular.module('LookieDontTouchie').controller('LoginController', ['$rootScope', '$scope','LoginService', function($rootScope, $scope, LoginService) {
+angular.module('LookieDontTouchie').controller('LoginController', ['$rootScope', '$scope', '$state','LoginService', function($rootScope, $scope, $state, LoginService) {
 
     $scope.loginPage = {
         heading: "Login",
@@ -12,13 +12,17 @@ angular.module('LookieDontTouchie').controller('LoginController', ['$rootScope',
     $scope.login = function() {
         $scope.loginPage.badAuthentication = false;
         $scope.loginPage.yay = false;
-        LoginService.login($scope.loginPage.username, $scope.loginPage.password);
-        if (LoginService.wasLoginSuccessful()) {
-            $scope.loginPage.yay = true;
-        }
-        else {
-            $scope.loginPage.badAuthentication = true;
-        }
+        var promise = LoginService.login($scope.loginPage.username, $scope.loginPage.password);
+        promise.success(function(data) {
+            if (data.status == "success") {
+                $scope.loginPage.yay = true;
+            }
+            else {
+                $scope.loginPage.badAuthentication = true;
+            }
+        }).error(function() {
+             $state.go('error');
+        });
     }
     
 }]);

@@ -5,11 +5,11 @@ angular.module('LookieDontTouchie').config(['$stateProvider', '$urlRouterProvide
             templateUrl: 'templates/login-page.html',
             controller: 'LoginController'
     });
-    // $stateProvider.state('lemonaide', {
-    //         url: '/lemonaide',
-    //         templateUrl: 'templates/lemon-aide.html',
-    //         controller: 'LemonAideController'
-    // });
+    $stateProvider.state('error', {
+            url: '/error',
+            templateUrl: 'templates/error-page.html',
+            controller: 'ErrorController'
+    });
     // $stateProvider.state('orderInfo', {
     //     url: '/orderInfo',
     //     templateUrl: 'templates/order-info.html',

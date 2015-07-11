@@ -1,11 +1,11 @@
 <div>
-    <div class="container_16">
+    <div class="btn-row">
         <div class="prefix_2 grid_14">
             <section ng-controller="LoginController">
                 <h1>{{loginPage.heading}}</h1>
                 <form ng-submit="login()">
                 <ul class="prefix_1">
-                    <li class="error" ng-show="loginPage.showError">
+                    <li class="error" ng-show="loginPage.badAuthentication">
                         The username or password entered were incorrect.
                     </li>
                     <li>
@@ -18,9 +18,6 @@
                     </li>
                     <li>
                         <input type="submit" value="Submit" />
-                    </li>
-                    <li class="error" ng-show="loginPage.yay ">
-                        YAY!!!!!!!!!!!!!!!!!!!!!
                     </li>
                 </ul>
                 </form>

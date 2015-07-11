@@ -28,7 +28,7 @@ module.exports = function(router) {
                             var request = requests[i];
                             client.getAsset(request.asset, function(err, asset) {
                                 var assetData = JSON.parse(asset.definition_reference.description);
-                                assetData.id = request.asset;
+                                assetData.id = asset.asset_id;
                                 data.push(assetData);
                                 if(data.length===requests.length) {
                                     res.json(data);
@@ -181,6 +181,7 @@ module.exports = function(router) {
                                 delivery.save();
     
                                 var recipients = JSON.parse(assetData.to);
+                                console.log(assetData.to);
                                 console.log(recipients);
                                 console.log(recipients.length);
                                 

@@ -9,6 +9,7 @@ var fs         = require('fs');             // call fs
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var chain = require('chain-wallets-node');
+var domain = require('domain');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -47,6 +48,10 @@ app.use(function(req, res, next) {
     // do logging
     console.log(req.method+" "+req.url);
     next();
+});
+
+domain.create().on('error', function(err) {
+  console.error(err);
 });
 
 app.use('/api', router);
