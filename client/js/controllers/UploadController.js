@@ -15,7 +15,7 @@ angular.module('LookieDontTouchie').controller('UploadController', ['$rootScope'
         promise.success(function (data) {
             blob = new Blob([ data ], { type : 'text/plain' });
             var url = (window.URL || window.webkitURL).createObjectURL( blob );
-            downloadURI(url, '')
+            downloadURI(url, 'encryptedFile.txt');
         }).error(function () {
             $state.go('error');
         });

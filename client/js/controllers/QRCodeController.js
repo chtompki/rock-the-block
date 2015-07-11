@@ -6,8 +6,8 @@ angular.module('LookieDontTouchie').controller('QRCodeController', ['$rootScope'
 
     $scope.qrCodeUrl = DataService.getFileRequestPrivateKeyQrCode(username, requestId);
 
-    DataService.getFileRequestDetails(username, requestId).then(function(data){
-        console.log(data);
+    DataService.getFileRequestDetails(username, requestId).then(function(details){
+        $scope.description = details.data.description;
     });
 
 }]);
