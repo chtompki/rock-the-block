@@ -70,7 +70,7 @@ module.exports = function(router) {
                 Wallet.findOne(function(err, wallet) {
                     var client = wallet.getClient();
                     var assetMetaData = {
-                        'type': 'request',
+                        'type': 'delivery',
                         'from': from, 
                         'to': to, 
                         'description': description,
@@ -152,43 +152,41 @@ module.exports = function(router) {
                         res.contentType('application/octet-stream');
                         res.end(fileOutput);
 
-                        var delivery = new Delivery();
-                        delivery.from = assetData.from;
-                        delivery.to = JSON.stringify(assetData.to);
-                        delivery.description = assetData.description;
-                        delivery.privateKey = myEncryptedPrivateKey;
-                        delivery.url = req.body.url;
-                        
-                        delivery.save(function() {
+                        var recipients = JSON.parse(assetData.to);
 
-                            var assetMetaData = {
-                                'type': 'request',
-                                'from': delivery.from, 
-                                'to': delivery.to, 
-                                'description': delivery.description,
-                                'key': delivery.privateKey,
-                                'url': delivery.url
-                            };
-                            var assetDefinition = {description: JSON.stringify(assetMetaData)};
+                        for(var i = 0; i<recipients.length; i++) {
 
-                            client.createAsset(wallet.id, {
-                                definition_mutable:false, 
-                                definition:assetDefinition, 
-                                description_mime:'application/json',
-                                definition_url: 'https://bithack-crazyatlantaguy.c9.io/api/user/'+req.params.user_id+'/delivery/'+delivery._id
-                            }, function(err, response){
-                                delivery.asset = response.asset_id;
-                                delivery.save();
-    
-                                var recipients = JSON.parse(assetData.to);
-                                console.log(assetData.to);
-                                console.log(recipients);
-                                console.log(recipients.length);
+                            User.findOne({'username': recipients[i]}, function(err, to_user) {
+                                console.log(recipients[i]+" "+to_user);
+                                    
+                                var delivery = new Delivery();
+                                delivery.from = assetData.from;
+                                delivery.to = to_user.username
+                                delivery.description = assetData.description;
+                                delivery.privateKey = myEncryptedPrivateKey;
+                                delivery.url = req.body.url;
                                 
-                                for(var i = 0; i<recipients.length; i++) {
+                                delivery.save(function() {
         
-                                    User.findOne({'username': recipients[i]}, function(err, to_user) {
-                                        console.log(recipients[i]+" "+to_user);
+                                    var assetMetaData = {
+                                        'type': 'delivery',
+                                        'from': delivery.from, 
+                                        'to': to_user.username, 
+                                        'description': delivery.description,
+                                        'key': delivery.privateKey,
+                                        'url': delivery.url
+                                    };
+                                    var assetDefinition = {description: JSON.stringify(assetMetaData)};
+                                    
+                                    client.createAsset(wallet.id, {
+                                        definition_mutable:false, 
+                                        definition:assetDefinition, 
+                                        description_mime:'application/json',
+                                        definition_url: 'https://bithack-crazyatlantaguy.c9.io/api/user/'+req.params.user_id+'/delivery/'+delivery._id
+                                    }, function(err, response){
+                                        delivery.asset = response.asset_id;
+                                        delivery.save();
+    
                                         client.issueAsset(response.asset_id, 
                                         [{
                                             bucket_id:to_user.bucket,
@@ -197,9 +195,9 @@ module.exports = function(router) {
                                             console.log("success");
                                         });
                                     });                                
-                                }
+                                });
                             });
-                        });
+                        }
                     });
                 });
             });

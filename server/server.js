@@ -39,6 +39,7 @@ require('./routes/user')(router);
 require('./routes/wallet')(router);
 require('./routes/event')(router);
 require('./routes/request')(router);
+require('./routes/delivery')(router);
 
 // Models
 var User     = require('./models/user');
