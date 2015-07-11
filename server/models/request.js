@@ -5,7 +5,8 @@ var RequestSchema   = new Schema({
     from: String,
     to: String,
     description: String,
-    key: String,
+    publicKey: String,
+    privateKey: String,
     asset: String
 });
 

@@ -5,32 +5,19 @@ var bitcoin = require('bitcoinjs-lib');
 module.exports = function(router) {
 
     router.route('/user')
-/*    
     .post(function(req, res) {
-        
-        var user = new User();
-        user.name = req.body.name;
-        user.id = 'yxh340'
-        
-        var address = new Address();
-        var key = bitcoin.ECKey.makeRandom();
-        address.publicKey = key.pub.getAddress().toString();
-        address.privateKey = key.toWIF();
-        
-        user.address = address;
-
-        // save the bear and check for errors
-        address.save(function(err) {
+        User.findOne({username:req.body.username, password: req.body.password}, function(err, user) {
             if (err)
                 res.send(err);
-            user.save(function(err) {
-                if (err)
-                    res.send(err);
-                res.json(user);
-            });
+            if(user) {
+                res.json({status:'success'});
+            } else {
+                res.json({status:'failed'});
+            }
         });
+        
     })
-*/
+
     .get(function(req, res) {
         User.find(function(err, users) {
             if (err)

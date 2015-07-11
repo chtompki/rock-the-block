@@ -18,7 +18,7 @@ module.exports = function(router) {
                         'from': requests[i].from, 
                         'to': requests[i].to, 
                         'description': requests[i].description,
-                        'key': requests[i].key,
+                        'key': requests[i].publicKey,
                         'id': requests[i]._id
                     });
                 }
@@ -28,6 +28,26 @@ module.exports = function(router) {
         });
     });
 
+
+    router.route('/user/:user_id/request/:request_id/qrcode')
+    .get(function(req, res) {
+    
+        User.findOne({'username': req.params.user_id}, function(err, user) {
+            if (err)
+                res.send(err);
+
+            Request.findById(req.params.request_id, function(err, request) {
+
+                var qr = require('qr-image');  
+                var fs = require('fs');
+                
+                var code = qr.image(request.privateKey, { type: 'png' });  
+                res.type('png');
+                code.pipe(res);  
+
+            });
+        });
+    });
 
     router.route('/user/:user_id/request/:request_id')
     .get(function(req, res) {
@@ -65,7 +85,8 @@ module.exports = function(router) {
             request.from = from;
             request.to = to;
             request.description = description;
-            request.key = publicKey;
+            request.publicKey = publicKey;
+            request.privateKey = privateKey;
             
             request.save(function(err) {
                 if (err)
