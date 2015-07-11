@@ -2,17 +2,20 @@ angular.module('LookieDontTouchie').controller('UploadController', ['$rootScope'
 
     var username = $stateParams.username;
     var id = $stateParams.id;
+    var blob = '';
+    $scope.showFileToDownload = false;
 
     $scope.upload = {
         file: '',
         url: ''
     };
-    
+
     $scope.upload = function() {
         var promise = DataService.uploadFileRequestData(username, id, $scope.upload.url, $scope.upload.file);
-        //function(username, request, url, data);
-        promise.success(function () {
-            
+        promise.success(function (data) {
+            blob = new Blob([ data ], { type : 'text/plain' });
+            var url = (window.URL || window.webkitURL).createObjectURL( blob );
+            downloadURI(url, '')
         }).error(function () {
             $state.go('error');
         });
@@ -21,6 +24,13 @@ angular.module('LookieDontTouchie').controller('UploadController', ['$rootScope'
     $scope.cancel = function() {
         $state.go('user', {username: username});
     }
+    
+    function downloadURI(uri, name) {
+      var link = document.createElement("a");
+      link.download = name;
+      link.href = uri;
+      link.click();
+    }   
     
     
 }]);

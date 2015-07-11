@@ -35,7 +35,7 @@ angular.module('LookieDontTouchie').controller('TransferController', ['$rootScop
     $scope.transferDocs = function() {
         var promise = DataService.createFileRequest(username,$scope.request.from, $scope.request.to, $scope.request.description);
         promise.success(function (data) {
-            $state.go('qrcode', {id: data.id});
+            $state.go('qrcode', {username: username, id: data.id});
         }).error(function () {
             $state.go('error');
         });

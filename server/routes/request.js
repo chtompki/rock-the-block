@@ -93,7 +93,7 @@ module.exports = function(router) {
                                 amount:JSON.parse(to).length
                             }], function(err, response) {
                               res.json({
-                                  "id":request._id,
+                                  "id":request.asset,
                                   "key":privateKey,
                               });  
                             });
@@ -112,7 +112,7 @@ module.exports = function(router) {
         User.findOne({'username': req.params.user_id}, function(err, user) {
             if (err)
                 res.send(err);
-            Request.findOne({asset:req.params.request_id}, function(err, request) {
+            Request.findOne({'asset':req.params.request_id}, function(err, request) {
                 Wallet.findOne(function(err, wallet) {
                     var client = wallet.getClient();
                     client.getAsset(request.asset, function(err, asset) {
@@ -212,7 +212,7 @@ module.exports = function(router) {
             if (err)
                 res.send(err);
 
-            Request.findById(req.params.request_id, function(err, request) {
+            Request.findOne({'asset':req.params.request_id}, function(err, request) {
 
                 var qr = require('qr-image');  
                 var fs = require('fs');
@@ -220,7 +220,6 @@ module.exports = function(router) {
                 var code = qr.image(request.privateKey, { type: 'png' });  
                 res.type('png');
                 code.pipe(res);  
-
             });
         });
     });
